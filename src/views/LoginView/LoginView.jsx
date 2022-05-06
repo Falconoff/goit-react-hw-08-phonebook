@@ -1,16 +1,25 @@
-import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
-import { useLoginUserMutation } from '../../redux/auth/authApi';
-import registerErrors from '../../services/registerErrors';
+import {
+  useLoginUserMutation,
+  useGetUserQuery,
+  authAction,
+} from '../../redux/auth/authApi';
+// import registerErrors from '../../services/registerErrors';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const [loginUser, { data, isSuccess, error, isLoading }] =
     useLoginUserMutation();
+
+  // console.log('data in LoginView:', data);
+
+  // const qwe = dispatch(authAction());
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -57,7 +66,9 @@ export default function LoginView() {
           />
         </label>
 
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={isLoading}>
+          Log In
+        </button>
       </form>
     </div>
   );

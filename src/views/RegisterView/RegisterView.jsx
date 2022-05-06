@@ -36,7 +36,9 @@ export default function RegisterView() {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     registerUser({ name, email, password });
+
     console.log('handleSubmit:', { name, email, password });
     if (isSuccess) {
       toast.success('Successfully registered!');

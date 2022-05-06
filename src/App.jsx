@@ -31,6 +31,7 @@ function App() {
           <Route path="contacts" element={<Contacts />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+
           {/* <Route index element={<HomePage />} />
           <Route path="movies" element={<MoviesPage />} />
           <Route path="movies/:movieId" element={<MovieDetailsPage />}>

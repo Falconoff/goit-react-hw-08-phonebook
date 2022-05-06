@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import UserMenu from '../../components/UserMenu/UserMenu';
+
 import { Header, Link, Footer, MainWrapper } from './Layout.styled';
 
 export default function Layout() {
@@ -11,6 +13,7 @@ export default function Layout() {
         <Link to="/register">register</Link>
         <Link to="/login">login</Link>
         <Link to="/contacts">contacts</Link>
+        <UserMenu />
       </Header>
 
       <MainWrapper>

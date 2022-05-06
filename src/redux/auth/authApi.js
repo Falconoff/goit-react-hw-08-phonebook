@@ -1,5 +1,6 @@
-/*
 import { createSlice } from '@reduxjs/toolkit';
+
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // const initialState = '';
 const initialState = {
@@ -12,7 +13,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authAction: (state, action) => action.payload,
+    authAction: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
   },
 });
 
@@ -21,28 +26,32 @@ export const { authAction } = authSlice.actions;
 // SELECTORS
 export const getIsLoggedIn = state => state.auth.isLoggedIn;
 export const getUserName = state => state.auth.user.name;
-*/
-// ----------- HW-8 RTK Query ----------------
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// ----------- RTK Query ----------------
+// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
   reducerPath: 'auth',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
   }),
-  // tagTypes: ['Auth'],
+  tagTypes: ['Auth'],
   endpoints: builder => ({
-    // fetchContacts: builder.query({
-    //   query: () => `/contacts`,
-    //   // providesTags: ['Contacts'],
-    // }),
+    getUser: builder.query({
+      query: token => ({
+        url: `/users/current`,
+        method: 'GET',
+        body: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: ['Auth'],
+    }),
     registerUser: builder.mutation({
       query: newUser => ({
         url: `/users/signup`,
         method: 'POST',
         body: newUser,
       }),
-      // invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth'],
     }),
     loginUser: builder.mutation({
       query: loginData => ({
@@ -50,7 +59,7 @@ export const authApi = createApi({
         method: 'POST',
         body: loginData,
       }),
-      // invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth'],
     }),
     logoutUser: builder.mutation({
       query: logoutData => ({
@@ -58,15 +67,7 @@ export const authApi = createApi({
         method: 'POST',
         body: logoutData,
       }),
-      // invalidatesTags: ['Auth'],
-    }),
-    getUser: builder.query({
-      query: token => ({
-        url: `/users/current`,
-        method: 'GET',
-        body: token,
-      }),
-      // invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth'],
     }),
   }),
 });
