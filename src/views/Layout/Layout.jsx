@@ -1,4 +1,6 @@
+// import { is } from 'immer/dist/internal';
 import { Suspense } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Outlet } from 'react-router-dom';
 
@@ -7,13 +9,18 @@ import UserMenu from '../../components/UserMenu/UserMenu';
 import { Header, Link, Footer, MainWrapper } from './Layout.styled';
 
 export default function Layout() {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
   return (
     <>
       <Header>
-        <Link to="/register">register</Link>
-        <Link to="/login">login</Link>
+        {!isLoggedIn && <Link to="/register">register</Link>}
+        {!isLoggedIn && <Link to="/login">login</Link>}
+        {/* <Link to="/register">register</Link>
+        <Link to="/login">login</Link> */}
         <Link to="/contacts">contacts</Link>
-        <UserMenu />
+        {isLoggedIn && <UserMenu />}
+        {/* <UserMenu /> */}
       </Header>
 
       <MainWrapper>

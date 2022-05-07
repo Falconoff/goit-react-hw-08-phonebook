@@ -17,10 +17,6 @@ export default function LoginView() {
   const [loginUser, { data, isSuccess, error, isLoading }] =
     useLoginUserMutation();
 
-  // console.log('data in LoginView:', data);
-
-  // const qwe = dispatch(authAction());
-
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'email':
@@ -34,10 +30,22 @@ export default function LoginView() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    loginUser({ email, password });
+
+    loginAndSaveToState({ email, password });
+
     console.log('handleSubmit:', { email, password });
-    // setEmail('');
-    // setPassword('');
+
+    setEmail('');
+    setPassword('');
+  };
+
+  // login user by RTK and then save it to State by Slice
+  const loginAndSaveToState = async user => {
+    const returnedUser = await loginUser(user, {
+      selectFromResult: ({ data }) => data.user,
+    });
+
+    dispatch(authAction(returnedUser));
   };
 
   return (

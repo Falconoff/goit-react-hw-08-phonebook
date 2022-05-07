@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
-import { useRegisterUserMutation } from '../../redux/auth/authApi';
+import { useRegisterUserMutation, authAction } from '../../redux/auth/authApi';
 import registerErrors from '../../services/registerErrors';
 
 export default function RegisterView() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [registerUser, { data, isSuccess, error, isLoading }] =
     useRegisterUserMutation();
@@ -37,7 +37,8 @@ export default function RegisterView() {
   const handleSubmit = e => {
     e.preventDefault();
 
-    registerUser({ name, email, password });
+    // registerUser({ name, email, password });
+    registerAndSaveToState({ name, email, password });
 
     console.log('handleSubmit:', { name, email, password });
     if (isSuccess) {
@@ -45,6 +46,14 @@ export default function RegisterView() {
     }
     // setEmail('');
     // setPassword('');
+  };
+
+  // register user by RTK and then save it to State by Slice
+  const registerAndSaveToState = async user => {
+    const returnedUser = await registerUser(user, {
+      selectFromResult: ({ data }) => data.user,
+    });
+    dispatch(authAction(returnedUser));
   };
 
   return (

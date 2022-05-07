@@ -14,14 +14,19 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     authAction: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.user = action.payload.data.user;
+      state.token = action.payload.data.token;
       state.isLoggedIn = true;
+    },
+    logoutAction: (state, action) => {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
     },
   },
 });
 
-export const { authAction } = authSlice.actions;
+export const { authAction, logoutAction } = authSlice.actions;
 
 // SELECTORS
 export const getIsLoggedIn = state => state.auth.isLoggedIn;
@@ -34,6 +39,13 @@ export const authApi = createApi({
   reducerPath: 'auth',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ['Auth'],
   endpoints: builder => ({
@@ -62,10 +74,9 @@ export const authApi = createApi({
       invalidatesTags: ['Auth'],
     }),
     logoutUser: builder.mutation({
-      query: logoutData => ({
+      query: () => ({
         url: `/users/logout`,
         method: 'POST',
-        body: logoutData,
       }),
       invalidatesTags: ['Auth'],
     }),
