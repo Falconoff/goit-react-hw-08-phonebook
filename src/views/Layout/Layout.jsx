@@ -16,11 +16,9 @@ export default function Layout() {
       <Header>
         {!isLoggedIn && <Link to="/register">register</Link>}
         {!isLoggedIn && <Link to="/login">login</Link>}
-        {/* <Link to="/register">register</Link>
-        <Link to="/login">login</Link> */}
-        <Link to="/contacts">contacts</Link>
+
+        {isLoggedIn && <Link to="/contacts">contacts</Link>}
         {isLoggedIn && <UserMenu />}
-        {/* <UserMenu /> */}
       </Header>
 
       <MainWrapper>

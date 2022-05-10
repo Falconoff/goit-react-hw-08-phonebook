@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { useAddNewContactMutation } from '../../redux/contacts/contactsSlice';
-import { useFetchContactsQuery } from '../../redux/contacts/contactsSlice';
+import {
+  useAddNewContactMutation,
+  useFetchContactsQuery,
+} from '../../redux/contacts/contactsApi';
 
 import { FormTag, InputField, FormBtn } from './Form.styled';
 

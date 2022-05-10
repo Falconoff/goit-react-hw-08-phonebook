@@ -4,6 +4,8 @@
 token:
 
 { "name": "sss", "email": "sss@sss.ua", "password": "1234567" }
+token:'eyJhbGciOi { "name": "fff", "email": "fff@fff.ua", "password": "1234567"
+}
 
 ## заметки
 

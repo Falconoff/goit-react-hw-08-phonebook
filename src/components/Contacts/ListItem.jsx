@@ -1,5 +1,5 @@
 // ContactsListItem
-import { useDeleteContactMutation } from '../../redux/contacts/contactsSlice';
+import { useDeleteContactMutation } from '../../redux/contacts/contactsApi';
 
 import { ListItem, UserName, DeleteBtn } from './Contacts.styled';
 
