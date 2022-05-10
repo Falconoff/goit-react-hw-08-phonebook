@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 // import { authApi } from './auth/authApi';
-import { authSlice } from './auth/authApi';
+import { authSlice, authApi } from './auth/authApi';
 
 import { contactsApi } from './contacts/contactsApi';
 import { filterSlice } from './filter/filterSlice';
@@ -40,9 +40,13 @@ export const store = configureStore({
   },
 
   middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware(),
-    // authSlice.middleware,
-    contactsApi.middleware,
+    ...getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+    // authApi.middleware,
+    // contactsApi.middleware,
   ],
 });
 

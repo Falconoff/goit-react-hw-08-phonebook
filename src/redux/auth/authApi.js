@@ -13,6 +13,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    getCurrentUserAction: (state, action) => {
+      state.user = action.payload.data.user;
+      // state.token = action.payload.data.token;
+      state.isLoggedIn = true;
+    },
     authAction: (state, action) => {
       state.user = action.payload.data.user;
       state.token = action.payload.data.token;
@@ -26,7 +31,8 @@ export const authSlice = createSlice({
   },
 });
 
-export const { authAction, logoutAction } = authSlice.actions;
+export const { getCurrentUserAction, authAction, logoutAction } =
+  authSlice.actions;
 
 // SELECTORS
 export const getIsLoggedIn = state => state.auth.isLoggedIn;
@@ -48,14 +54,15 @@ export const authApi = createApi({
     },
   }),
   tagTypes: ['Auth'],
+
   endpoints: builder => ({
-    getUser: builder.query({
-      query: token => ({
+    fetchCurrentUser: builder.query({
+      query: () => ({
         url: `/users/current`,
         method: 'GET',
-        body: { Authorization: `Bearer ${token}` },
+        // body: { Authorization: `Bearer ${token}` },
       }),
-      providesTags: ['Auth'],
+      invalidatesTags: ['Auth'],
     }),
     registerUser: builder.mutation({
       query: newUser => ({
@@ -84,10 +91,10 @@ export const authApi = createApi({
 });
 
 export const {
+  useFetchCurrentUserQuery,
   useRegisterUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,
-  useGetUserQuery,
 } = authApi;
 
 // SELECTORS

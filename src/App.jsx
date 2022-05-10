@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
 import Layout from './views/Layout/Layout';
@@ -11,10 +12,27 @@ import HomeView from 'views/HomeView/HomeView';
 // import Contacts from '../Contacts';
 // import Filter from '../Filter';
 
+import { useFetchCurrentUserQuery } from './redux/auth/authApi';
+
 // import { Container, TitleMain, TitleSecond } from './App.styled';
 import { Container } from './App.styled';
 
 function App() {
+  const token = useSelector(state => state.auth.token);
+  const isToken = token !== null;
+  console.log('App - token:', token);
+  console.log('App - isTOKEN:', isToken);
+
+  const {
+    data: contacts,
+    error,
+    isLoading,
+    isUninitialized,
+  } = useFetchCurrentUserQuery();
+  //{ skip: !isToken }
+  console.log('App - contacts:', contacts);
+  console.log('App!!!!!!!!!!!!!!');
+
   return (
     <Container>
       <Toaster

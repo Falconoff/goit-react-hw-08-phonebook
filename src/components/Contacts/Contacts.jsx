@@ -15,9 +15,10 @@ export default function Contacts() {
     error,
     isLoading,
     isUninitialized,
-  } = useFetchContactsQuery({ refetchOnMountOrArgChange: isLoggedIn });
+  } = useFetchContactsQuery();
+  // useFetchContactsQuery({ refetchOnMountOrArgChange: isLoggedIn })
 
-  console.log('isLoggedIn', isLoggedIn);
+  console.log('Contacts - isLoggedIn:', isLoggedIn);
   // fetchContacts();
 
   // for filter
