@@ -14,7 +14,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     getCurrentUserAction: (state, action) => {
-      state.user = action.payload.data.user;
+      state.user = action.payload;
       // state.token = action.payload.data.token;
       state.isLoggedIn = true;
     },
@@ -57,12 +57,20 @@ export const authApi = createApi({
 
   endpoints: builder => ({
     fetchCurrentUser: builder.query({
-      query: () => ({
-        url: `/users/current`,
-        method: 'GET',
-        // body: { Authorization: `Bearer ${token}` },
-      }),
-      invalidatesTags: ['Auth'],
+      // query: () => ({
+      //   url: `/users/current`,
+      //   method: 'GET',
+      query: () => `/users/current`,
+      // }),
+      providesTags: ['Auth'],
+    }),
+    tempFetchCurrentUser: builder.mutation({
+      // query: () => ({
+      //   url: `/users/current`,
+      //   method: 'GET',
+      query: () => `/users/current`,
+      // }),
+      // invalidatesTags: ['Auth'],
     }),
     registerUser: builder.mutation({
       query: newUser => ({
@@ -91,6 +99,7 @@ export const authApi = createApi({
 });
 
 export const {
+  useTempFetchCurrentUserMutation,
   useFetchCurrentUserQuery,
   useRegisterUserMutation,
   useLoginUserMutation,

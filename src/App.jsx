@@ -12,10 +12,14 @@ import HomeView from 'views/HomeView/HomeView';
 // import Contacts from '../Contacts';
 // import Filter from '../Filter';
 
-import { useFetchCurrentUserQuery } from './redux/auth/authApi';
+import {
+  useFetchCurrentUserQuery,
+  useTempFetchCurrentUserMutation,
+} from './redux/auth/authApi';
 
 // import { Container, TitleMain, TitleSecond } from './App.styled';
 import { Container } from './App.styled';
+import { useEffect } from 'react';
 
 function App() {
   const token = useSelector(state => state.auth.token);
@@ -23,14 +27,29 @@ function App() {
   console.log('App - token:', token);
   console.log('App - isTOKEN:', isToken);
 
-  const {
-    data: contacts,
-    error,
-    isLoading,
-    isUninitialized,
-  } = useFetchCurrentUserQuery();
-  //{ skip: !isToken }
-  console.log('App - contacts:', contacts);
+  // ================ ЭТО РАБОТАЮЩИЙ Мутатор useTempFetchCurrentUserMutation ==============
+  // const dispatch = useDispatch();
+  // const [tempFetchCU, { data }] = useTempFetchCurrentUserMutation();
+  // useEffect(() => {
+  //   tempFetchCU();
+  // }, []);
+
+  // fetch user by token and then save it to State by Slice
+  // const loginAndSaveToState = async user => {
+  //   const returnedUser = await loginUser(user, {
+  //     selectFromResult: ({ data }) => data.user,
+  //   });
+
+  //   dispatch(authAction(returnedUser));
+  // };
+
+  // ================ ЭТО НЕРАБОТАЮЩИЙ КВЕРИ-ХУК useFetchCurrentUserQuery ==============
+  // const { data, error, isLoading, isUninitialized } = useFetchCurrentUserQuery(
+  //   []
+  // );
+  // //{ skip: !isToken }
+
+  // console.log('App - result:', data);
   console.log('App!!!!!!!!!!!!!!');
 
   return (

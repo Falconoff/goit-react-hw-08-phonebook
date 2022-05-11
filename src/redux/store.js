@@ -46,7 +46,7 @@ export const store = configureStore({
       },
     }),
     // authApi.middleware,
-    // contactsApi.middleware,
+    contactsApi.middleware,
   ],
 });
 
