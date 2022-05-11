@@ -4,7 +4,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
-// import { authApi } from './auth/authApi';
 import { authSlice, authApi } from './auth/authApi';
 
 import { contactsApi } from './contacts/contactsApi';
@@ -28,7 +27,6 @@ const authPersistConfig = {
   storage,
   whitelist: ['token'],
 };
-// const persistedContactsReducer = persistReducer(authPersistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: {

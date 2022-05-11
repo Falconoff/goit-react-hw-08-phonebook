@@ -15,6 +15,7 @@ import HomeView from 'views/HomeView/HomeView';
 import {
   useFetchCurrentUserQuery,
   useTempFetchCurrentUserMutation,
+  getCurrentUserAction,
 } from './redux/auth/authApi';
 
 // import { Container, TitleMain, TitleSecond } from './App.styled';
@@ -28,25 +29,27 @@ function App() {
   console.log('App - isTOKEN:', isToken);
 
   // ================ ЭТО РАБОТАЮЩИЙ Мутатор useTempFetchCurrentUserMutation ==============
-  // const dispatch = useDispatch();
-  // const [tempFetchCU, { data }] = useTempFetchCurrentUserMutation();
-  // useEffect(() => {
-  //   tempFetchCU();
-  // }, []);
+  const dispatch = useDispatch();
+  const [tempFetchCU, { data }] = useTempFetchCurrentUserMutation();
+
+  useEffect(() => {
+    if (isToken) {
+      fetchAndSaveToState();
+    }
+  }, []);
 
   // fetch user by token and then save it to State by Slice
-  // const loginAndSaveToState = async user => {
-  //   const returnedUser = await loginUser(user, {
-  //     selectFromResult: ({ data }) => data.user,
-  //   });
+  const fetchAndSaveToState = async user => {
+    const returnedUser = await tempFetchCU(user, {
+      selectFromResult: ({ data }) => data.user,
+    });
 
-  //   dispatch(authAction(returnedUser));
-  // };
+    dispatch(getCurrentUserAction(returnedUser));
+  };
 
   // ================ ЭТО НЕРАБОТАЮЩИЙ КВЕРИ-ХУК useFetchCurrentUserQuery ==============
-  // const { data, error, isLoading, isUninitialized } = useFetchCurrentUserQuery(
-  //   []
-  // );
+  // const { data, error, isLoading, isUninitialized } =
+  //   useFetchCurrentUserQuery();
   // //{ skip: !isToken }
 
   // console.log('App - result:', data);
@@ -68,14 +71,6 @@ function App() {
           <Route path="contacts" element={<Contacts />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-
-          {/* <Route index element={<HomePage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="movies/:movieId" element={<MovieDetailsPage />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
-          <Route path="*" element={<HomePage />} /> */}
         </Route>
       </Routes>
     </Container>
