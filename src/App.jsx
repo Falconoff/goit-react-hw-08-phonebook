@@ -18,6 +18,8 @@ import {
   getCurrentUserAction,
 } from './redux/auth/authApi';
 
+// import { authSlice } from './redux/auth/authSlice';
+
 // import { Container, TitleMain, TitleSecond } from './App.styled';
 import { Container } from './App.styled';
 import { useEffect } from 'react';
@@ -25,35 +27,27 @@ import { useEffect } from 'react';
 function App() {
   const token = useSelector(state => state.auth.token);
   const isToken = token !== null;
-  console.log('App - token:', token);
+  // console.log('App - token:', token);
   console.log('App - isTOKEN:', isToken);
 
-  // ================ ЭТО РАБОТАЮЩИЙ Мутатор useTempFetchCurrentUserMutation ==============
+  // ================  КВЕРИ-ХУК  ==============
   const dispatch = useDispatch();
-  const [tempFetchCU, { data }] = useTempFetchCurrentUserMutation();
 
-  useEffect(() => {
-    if (isToken) {
-      fetchAndSaveToState();
-    }
-  }, []);
+  const {
+    data: result,
+    isSuccess,
+    isLoading,
+  } = useFetchCurrentUserQuery({
+    skip: true,
+  });
 
-  // fetch user by token and then save it to State by Slice
-  const fetchAndSaveToState = async user => {
-    const returnedUser = await tempFetchCU(user, {
-      selectFromResult: ({ data }) => data.user,
-    });
+  if (isSuccess) {
+    dispatch(getCurrentUserAction(result));
+  }
 
-    dispatch(getCurrentUserAction(returnedUser));
-  };
-
-  // ================ ЭТО НЕРАБОТАЮЩИЙ КВЕРИ-ХУК useFetchCurrentUserQuery ==============
-  // const { data, error, isLoading, isUninitialized } =
-  //   useFetchCurrentUserQuery();
-  // //{ skip: !isToken }
-
-  // console.log('App - result:', data);
-  console.log('App!!!!!!!!!!!!!!');
+  // console.log('App - data:', data);
+  // console.log('App - result:', result);
+  // console.log('isLoading', isLoading);
 
   return (
     <Container>

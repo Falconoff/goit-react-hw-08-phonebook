@@ -6,28 +6,11 @@ import { Outlet } from 'react-router-dom';
 
 import UserMenu from '../../components/UserMenu/UserMenu';
 
-import { useFetchCurrentUserQuery } from '../../redux/auth/authApi';
-
 import { Header, Link, Footer, MainWrapper } from './Layout.styled';
 
 export default function Layout() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
-  /*
-  const token = useSelector(state => state.auth.token);
-  const isToken = token !== null;
-  console.log('Layout - token:', token);
-  console.log('Layout - isTOKEN:', isToken);
-
-  const {
-    data: contacts,
-    error,
-    isLoading,
-    isUninitialized,
-  } = useFetchCurrentUserQuery();
-  //{ skip: !isToken }
-  console.log('Layout - contacts:', contacts);
-*/
   return (
     <>
       <Header>

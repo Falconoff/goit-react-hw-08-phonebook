@@ -14,10 +14,15 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     getCurrentUserAction: (state, action) => {
-      state.user = action.payload.data;
+      state.user = action.payload;
       state.isLoggedIn = true;
     },
     authAction: (state, action) => {
+      state.user = action.payload.data.user;
+      state.token = action.payload.data.token;
+      state.isLoggedIn = true;
+    },
+    loginAction: (state, action) => {
       state.user = action.payload.data.user;
       state.token = action.payload.data.token;
       state.isLoggedIn = true;
@@ -28,20 +33,53 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
     },
   },
+  //   extraReducers: builder => {
+  //     builder.addMatcher(
+  //       authApi.endpoints.registerUser.matchFulfilled,
+  //       (state, { payload }) => {
+  //         state.user = payload.user;
+  //         state.token = payload.token;
+  //         state.isLoggedIn = true;
+  //       }
+  //     );
+  //     builder.addMatcher(
+  //       authApi.endpoints.loginUser.matchFulfilled,
+  //       (state, { payload }) => {
+  //         state.user = payload.user;
+  //         state.token = payload.token;
+  //         state.isLoggedIn = true;
+  //       }
+  //     );
+  //     builder.addMatcher(
+  //       authApi.endpoints.logoutUser.matchFulfilled,
+  //       (state, _) => {
+  //         state.user = { name: null, email: null };
+  //         state.token = null;
+  //         state.isLoggedIn = false;
+  //       }
+  //     );
+  //     builder.addMatcher(
+  //       authApi.endpoints.fetchCurrentUser.matchFulfilled,
+  //       (state, { payload }) => {
+  //         state.user = payload;
+  //         state.isLoggedIn = true;
+  //       }
+  //     );
+  //   },
 });
 
-export const { getCurrentUserAction, authAction, logoutAction } =
+export const { getCurrentUserAction, authAction, loginAction, logoutAction } =
   authSlice.actions;
 
 // SELECTORS
-export const getIsLoggedIn = state => state.auth.isLoggedIn;
-export const getUserName = state => state.auth.user.name;
+// export const getIsLoggedIn = state => state.auth.isLoggedIn;
+// export const getUserName = state => state.auth.user.name;
 
 // ----------- RTK Query ----------------
 // import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
-  reducerPath: 'auth',
+  reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
@@ -56,21 +94,11 @@ export const authApi = createApi({
 
   endpoints: builder => ({
     fetchCurrentUser: builder.query({
-      // query: () => ({
-      //   url: `/users/current`,
-      //   method: 'GET',
       query: () => `/users/current`,
-      // }),
+      // invalidatesTags: ['Auth'],
       providesTags: ['Auth'],
     }),
-    tempFetchCurrentUser: builder.mutation({
-      // query: () => ({
-      //   url: `/users/current`,
-      //   method: 'GET',
-      query: () => `/users/current`,
-      // }),
-      // invalidatesTags: ['Auth'],
-    }),
+
     registerUser: builder.mutation({
       query: newUser => ({
         url: `/users/signup`,
@@ -98,7 +126,7 @@ export const authApi = createApi({
 });
 
 export const {
-  useTempFetchCurrentUserMutation,
+  // useTempFetchCurrentUserMutation,
   useFetchCurrentUserQuery,
   useRegisterUserMutation,
   useLoginUserMutation,

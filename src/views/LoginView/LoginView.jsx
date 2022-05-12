@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import {
   useLoginUserMutation,
   useGetUserQuery,
-  authAction,
+  loginAction,
 } from '../../redux/auth/authApi';
 // import registerErrors from '../../services/registerErrors';
 
@@ -45,7 +45,7 @@ export default function LoginView() {
       selectFromResult: ({ data }) => data.user,
     });
 
-    dispatch(authAction(returnedUser));
+    dispatch(loginAction(returnedUser));
   };
 
   return (

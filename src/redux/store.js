@@ -30,9 +30,8 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    // [authApi.reducerPath]: authApi.reducer,
-    // auth: authSlice.reducer,
     auth: persistReducer(authPersistConfig, authSlice.reducer),
+    [authApi.reducerPath]: authApi.reducer,
     [contactsApi.reducerPath]: contactsApi.reducer,
     filter: filterSlice.reducer,
   },
@@ -43,7 +42,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-    // authApi.middleware,
+    authApi.middleware,
     contactsApi.middleware,
   ],
 });
