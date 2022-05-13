@@ -14,7 +14,7 @@ export default function RegisterView() {
   const [registerUser, { data, isSuccess, error, isLoading }] =
     useRegisterUserMutation();
 
-  console.log('data', data);
+  // console.log('data', data);
 
   useEffect(() => {
     registerErrors(error);
@@ -50,10 +50,17 @@ export default function RegisterView() {
 
   // register user by RTK and then save it to State by Slice
   const registerAndSaveToState = async user => {
-    const returnedUser = await registerUser(user, {
-      selectFromResult: ({ data }) => data.user,
-    });
-    dispatch(authAction(returnedUser));
+    try {
+      const returnedUser = await registerUser(user, {
+        selectFromResult: ({ data }) => data.user,
+      });
+      dispatch(authAction(returnedUser));
+    } catch (error) {
+      console.log(
+        'ERROR - RegisterView - Wrong e-mail or password. Error:',
+        error.message
+      );
+    }
   };
 
   return (

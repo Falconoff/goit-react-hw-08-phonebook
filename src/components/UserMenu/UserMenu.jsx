@@ -9,8 +9,8 @@ export default function UserMenu() {
   const dispatch = useDispatch();
   const [logoutUser] = useLogoutUserMutation();
 
-  // const name = useSelector(state => state.auth.user.name);
-  const name = 'xXx ';
+  const name = useSelector(state => state.auth.user.name);
+  // const name = 'xXx ';
 
   // logout user by RTK and then save it to State by Slice
   const logoutAndSaveToState = async () => {
@@ -20,7 +20,7 @@ export default function UserMenu() {
 
   return (
     <>
-      <span>Welcome, {name}</span>
+      <span>Welcome, {name} </span>
 
       <button type="button" onClick={logoutAndSaveToState}>
         Log Out

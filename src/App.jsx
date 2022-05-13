@@ -41,9 +41,9 @@ function App() {
     skip: true,
   });
 
-  if (isSuccess) {
-    dispatch(getCurrentUserAction(result));
-  }
+  useEffect(() => {
+    if (isSuccess) dispatch(getCurrentUserAction(result));
+  }, [isSuccess, result]);
 
   // console.log('App - data:', data);
   // console.log('App - result:', result);

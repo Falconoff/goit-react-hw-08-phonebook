@@ -95,8 +95,8 @@ export const authApi = createApi({
   endpoints: builder => ({
     fetchCurrentUser: builder.query({
       query: () => `/users/current`,
-      // invalidatesTags: ['Auth'],
-      providesTags: ['Auth'],
+      invalidatesTags: ['Auth'],
+      // providesTags: ['Auth'],
     }),
 
     registerUser: builder.mutation({

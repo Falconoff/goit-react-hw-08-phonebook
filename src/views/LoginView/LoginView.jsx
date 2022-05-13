@@ -7,7 +7,7 @@ import {
   useGetUserQuery,
   loginAction,
 } from '../../redux/auth/authApi';
-// import registerErrors from '../../services/registerErrors';
+import registerErrors from '../../services/registerErrors';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
@@ -16,6 +16,10 @@ export default function LoginView() {
 
   const [loginUser, { data, isSuccess, error, isLoading }] =
     useLoginUserMutation();
+
+  useEffect(() => {
+    registerErrors(error);
+  }, [error]);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -35,17 +39,32 @@ export default function LoginView() {
 
     console.log('handleSubmit:', { email, password });
 
-    setEmail('');
-    setPassword('');
+    if (isSuccess) {
+      setEmail('');
+      setPassword('');
+    }
   };
+
+  // console.log('LoginView - isLoading:', isLoading);
+  // console.log('LoginView - isSuccess:', isSuccess);
+  // console.log('LoginView - error:', error);
+  // console.log('LoginView - data:', data);
 
   // login user by RTK and then save it to State by Slice
   const loginAndSaveToState = async user => {
-    const returnedUser = await loginUser(user, {
-      selectFromResult: ({ data }) => data.user,
-    });
-
-    dispatch(loginAction(returnedUser));
+    try {
+      const returnedUser = await loginUser(user, {
+        selectFromResult: ({ data }) => data.user,
+      });
+      dispatch(loginAction(returnedUser));
+      // console.log('LoginView - returnedUser:', returnedUser);
+    } catch (error) {
+      toast.error('Wrong e-mail or password');
+      console.log(
+        'ERROR - LoginView - Wrong e-mail or password. Error:',
+        error.message
+      );
+    }
   };
 
   return (
