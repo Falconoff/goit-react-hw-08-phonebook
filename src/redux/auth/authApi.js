@@ -31,6 +31,7 @@ export const authSlice = createSlice({
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
+      state.contacts = null;
     },
   },
   //   extraReducers: builder => {
@@ -70,10 +71,6 @@ export const authSlice = createSlice({
 
 export const { getCurrentUserAction, authAction, loginAction, logoutAction } =
   authSlice.actions;
-
-// SELECTORS
-// export const getIsLoggedIn = state => state.auth.isLoggedIn;
-// export const getUserName = state => state.auth.user.name;
 
 // ----------- RTK Query ----------------
 // import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
@@ -126,7 +123,6 @@ export const authApi = createApi({
 });
 
 export const {
-  // useTempFetchCurrentUserMutation,
   useFetchCurrentUserQuery,
   useRegisterUserMutation,
   useLoginUserMutation,
@@ -134,5 +130,6 @@ export const {
 } = authApi;
 
 // SELECTORS
-// export const getIsLoggedIn = state => state.auth.isLoggedIn;
-// export const getUserName = state => state.auth.user.name;
+export const getIsLoggedIn = state => state.auth.isLoggedIn;
+export const getUserName = state => state.auth.user.name;
+export const getToken = state => state.auth.token;

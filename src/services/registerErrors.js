@@ -2,7 +2,7 @@ import toast from 'react-hot-toast';
 
 export default function registerErrors(error) {
   if (error) {
-    console.log('error all:', error);
+    // console.log('error all:', error);
 
     const emailErr = error?.data?.errors?.email?.message;
     if (emailErr) {
@@ -20,9 +20,9 @@ export default function registerErrors(error) {
       toast.error(`${error.data.keyValue.email} is already registered!`);
     }
 
-    console.log('error name:', error?.data?.errors?.name?.message);
-    console.log('error email:', error?.data?.errors?.email?.message);
-    console.log('error password:', error?.data?.errors?.password?.message);
-    console.log('error MongoDB 11000:', error?.data?.code);
+    // console.log('error name:', error?.data?.errors?.name?.message);
+    // console.log('error email:', error?.data?.errors?.email?.message);
+    // console.log('error password:', error?.data?.errors?.password?.message);
+    // console.log('error MongoDB 11000:', error?.data?.code);
   }
 }

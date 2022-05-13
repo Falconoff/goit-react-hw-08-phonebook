@@ -68,39 +68,44 @@ export default function RegisterView() {
       <h1 style={{ color: 'red', padding: '1rem' }}>Page - Register</h1>
 
       <form onSubmit={handleSubmit} autoComplete="off">
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            value={name}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <div>
+          <label>
+            Name
+            <input
+              type="text"
+              name="name"
+              value={name}
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
 
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Registering...' : 'Register'}

@@ -18,7 +18,7 @@ export default function Contacts() {
   } = useFetchContactsQuery({ refetchOnMountOrArgChange: isLoggedIn });
   // useFetchContactsQuery()
 
-  console.log('Contacts - isLoggedIn:', isLoggedIn);
+  // console.log('Contacts - isLoggedIn:', isLoggedIn);
   // fetchContacts();
 
   // for filter
@@ -43,7 +43,7 @@ export default function Contacts() {
 
   // console.log('CONSOLE isUninitialized ', isUninitialized);
   // console.log('CONSOLE error', error);
-  console.log('CONSOLE isLoading', isLoading);
+  // console.log('CONSOLE isLoading', isLoading);
 
   // if (isLoading) {
   //   console.log('CONSOLE isLoading');

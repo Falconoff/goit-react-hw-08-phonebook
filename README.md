@@ -1,11 +1,10 @@
 # goit-react-hw-08-phonebook
 
-{ "name": "Falconoff", "email": "sokolov@meta.ua", "password": "123123123" }
-token:
+- Public & Private Routes
 
-{ "name": "sss", "email": "sss@sss.ua", "password": "1234567" }
-token:'eyJhbGciOi { "name": "fff", "email": "fff@fff.ua", "password": "1234567"
-}
+- { "name": "Falconoff", "email": "sokolov@meta.ua", "password": "123123123" }
+- { "name": "sss", "email": "sss@sss.ua", "password": "1234567" }
+- { "name": "fff", "email": "fff@fff.ua", "password": "1234567" }
 
 ## заметки
 

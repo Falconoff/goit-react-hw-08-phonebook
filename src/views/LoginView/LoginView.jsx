@@ -60,10 +60,10 @@ export default function LoginView() {
       // console.log('LoginView - returnedUser:', returnedUser);
     } catch (error) {
       toast.error('Wrong e-mail or password');
-      console.log(
-        'ERROR - LoginView - Wrong e-mail or password. Error:',
-        error.message
-      );
+      // console.log(
+      //   'ERROR - LoginView - Wrong e-mail or password. Error:',
+      //   error.message
+      // );
     }
   };
 
@@ -71,27 +71,30 @@ export default function LoginView() {
     <div>
       <h1 style={{ color: 'red', padding: '1rem' }}>Page - Login</h1>
       <form onSubmit={handleSubmit} autoComplete="off">
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <div>
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
 
         <button type="submit" disabled={isLoading}>
           Log In

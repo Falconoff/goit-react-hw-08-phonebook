@@ -14,11 +14,14 @@ export default function Layout() {
   return (
     <>
       <Header>
+        <Link to="/">Home</Link>
         {!isLoggedIn && <Link to="/register">register</Link>}
         {!isLoggedIn && <Link to="/login">login</Link>}
+        {/* <Link to="/register">register</Link>
+        <Link to="/login">login</Link> */}
 
-        <Link to="/contacts">contacts</Link>
-        {/* {isLoggedIn && <Link to="/contacts">contacts</Link>} */}
+        {/* <Link to="/contacts">contacts</Link> */}
+        {isLoggedIn && <Link to="/contacts">contacts</Link>}
         {isLoggedIn && <UserMenu />}
       </Header>
 
