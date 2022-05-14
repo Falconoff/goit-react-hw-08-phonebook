@@ -1,4 +1,4 @@
-// ----------- HW-7 RTK Query ----------------
+// -----------  RTK Query ----------------
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const contactsApi = createApi({
@@ -18,6 +18,7 @@ export const contactsApi = createApi({
   endpoints: builder => ({
     fetchContacts: builder.query({
       query: () => `/contacts`,
+      keepUnusedDataFor: 5,
       providesTags: ['Contacts'],
     }),
     deleteContact: builder.mutation({

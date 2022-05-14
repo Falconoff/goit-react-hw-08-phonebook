@@ -1,9 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { useSelector, useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
-import Layout from './views/Layout/Layout';
-import Contacts from './views/ContactsView/ContactsView';
+import Layout from 'views/Layout/Layout';
+import Contacts from 'views/ContactsView/ContactsView';
 import Login from 'views/LoginView/LoginView';
 import Register from 'views/RegisterView/RegisterView';
 import HomeView from 'views/HomeView/HomeView';
@@ -13,32 +15,23 @@ import PublicRoute from 'views/Routes/PublicRoute';
 import {
   useFetchCurrentUserQuery,
   getCurrentUserAction,
-} from './redux/auth/authApi';
-
-import { Container } from './App.styled';
-import { useEffect } from 'react';
+} from 'redux/auth/authApi';
+import { getToken } from 'redux/auth/authSelectors';
 
 function App() {
-  const token = useSelector(state => state.auth.token);
-  const isToken = token !== null;
-
+  const token = useSelector(getToken);
   const dispatch = useDispatch();
 
-  const {
-    data: result,
-    isSuccess,
-    isLoading,
-  } = useFetchCurrentUserQuery({
-    skip: true,
-    // skip: !isToken,
-  });
+  const { data: result, isSuccess } = useFetchCurrentUserQuery(
+    token ? token : skipToken
+  );
 
   useEffect(() => {
     if (isSuccess) dispatch(getCurrentUserAction(result));
-  }, [isSuccess, result]);
+  }, [isSuccess, result, dispatch]);
 
   return (
-    <Container>
+    <>
       <Toaster
         toastOptions={{
           style: {
@@ -80,7 +73,7 @@ function App() {
           />
         </Route>
       </Routes>
-    </Container>
+    </>
   );
 }
 

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { authApi } from './authApi';
 
-// const initialState = '';
 const initialState = {
   user: { name: null, email: null },
   token: null,
@@ -47,6 +46,3 @@ export const authSlice = createSlice({
     );
   },
 });
-
-// export const { getCurrentUserAction, authAction, logoutAction } =
-//   authSlice.actions;

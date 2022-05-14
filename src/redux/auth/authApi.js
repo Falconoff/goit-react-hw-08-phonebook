@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// const initialState = '';
 const initialState = {
   user: { name: null, email: null },
   token: null,
@@ -31,49 +30,14 @@ export const authSlice = createSlice({
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
-      state.contacts = null;
     },
   },
-  //   extraReducers: builder => {
-  //     builder.addMatcher(
-  //       authApi.endpoints.registerUser.matchFulfilled,
-  //       (state, { payload }) => {
-  //         state.user = payload.user;
-  //         state.token = payload.token;
-  //         state.isLoggedIn = true;
-  //       }
-  //     );
-  //     builder.addMatcher(
-  //       authApi.endpoints.loginUser.matchFulfilled,
-  //       (state, { payload }) => {
-  //         state.user = payload.user;
-  //         state.token = payload.token;
-  //         state.isLoggedIn = true;
-  //       }
-  //     );
-  //     builder.addMatcher(
-  //       authApi.endpoints.logoutUser.matchFulfilled,
-  //       (state, _) => {
-  //         state.user = { name: null, email: null };
-  //         state.token = null;
-  //         state.isLoggedIn = false;
-  //       }
-  //     );
-  //     builder.addMatcher(
-  //       authApi.endpoints.fetchCurrentUser.matchFulfilled,
-  //       (state, { payload }) => {
-  //         state.user = payload;
-  //         state.isLoggedIn = true;
-  //       }
-  //     );
-  //   },
 });
 
 export const { getCurrentUserAction, authAction, loginAction, logoutAction } =
   authSlice.actions;
 
 // ----------- RTK Query ----------------
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -92,8 +56,7 @@ export const authApi = createApi({
   endpoints: builder => ({
     fetchCurrentUser: builder.query({
       query: () => `/users/current`,
-      invalidatesTags: ['Auth'],
-      // providesTags: ['Auth'],
+      providesTags: ['Auth'],
     }),
 
     registerUser: builder.mutation({
@@ -128,8 +91,3 @@ export const {
   useLoginUserMutation,
   useLogoutUserMutation,
 } = authApi;
-
-// SELECTORS
-export const getIsLoggedIn = state => state.auth.isLoggedIn;
-export const getUserName = state => state.auth.user.name;
-export const getToken = state => state.auth.token;

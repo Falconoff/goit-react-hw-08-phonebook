@@ -8,8 +8,6 @@ import {
 
 import { FormTag, InputField, FormBtn } from './Form.styled';
 
-// -------
-
 export default function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');

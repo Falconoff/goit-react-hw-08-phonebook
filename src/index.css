@@ -28,3 +28,8 @@ p {
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --accent-color: #4772ffce;
+  --text-color: #555;
+}

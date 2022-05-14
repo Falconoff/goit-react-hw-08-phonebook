@@ -1,12 +1,17 @@
-// import { is } from 'immer/dist/internal';
 import { Suspense } from 'react';
 import { useSelector } from 'react-redux';
-
 import { Outlet } from 'react-router-dom';
 
-import UserMenu from '../../components/UserMenu/UserMenu';
+import UserMenu from 'components/UserMenu/UserMenu';
 
-import { Header, Link, Footer, MainWrapper } from './Layout.styled';
+import {
+  Container,
+  Header,
+  HeaderNav,
+  Link,
+  Footer,
+  MainWrapper,
+} from './Layout.styled';
 
 export default function Layout() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -14,24 +19,44 @@ export default function Layout() {
   return (
     <>
       <Header>
-        <Link to="/">Home</Link>
-        {!isLoggedIn && <Link to="/register">register</Link>}
-        {!isLoggedIn && <Link to="/login">login</Link>}
-        {/* <Link to="/register">register</Link>
-        <Link to="/login">login</Link> */}
-
-        {/* <Link to="/contacts">contacts</Link> */}
-        {isLoggedIn && <Link to="/contacts">contacts</Link>}
-        {isLoggedIn && <UserMenu />}
+        <Container>
+          <HeaderNav>
+            <div>
+              <Link to="/">Home</Link>
+              {isLoggedIn && <Link to="/contacts">contacts</Link>}
+            </div>
+            <div>
+              {!isLoggedIn && <Link to="/register">register</Link>}
+              {!isLoggedIn && <Link to="/login">login</Link>}
+            </div>
+            {isLoggedIn && <UserMenu />}
+          </HeaderNav>
+        </Container>
       </Header>
 
-      <MainWrapper>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
-        </Suspense>
-      </MainWrapper>
+      <Container>
+        <MainWrapper>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
+        </MainWrapper>
+      </Container>
 
-      <Footer>2022, GoIT Homework - Phonebook, Falconoff ©</Footer>
+      <Footer>
+        <Container>
+          2022, GoIT Homework - Phonebook,{' '}
+          <a
+            href="https://github.com/Falconoff"
+            noopener="true"
+            noreferrer="true"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Falconoff
+          </a>{' '}
+          ©
+        </Container>
+      </Footer>
     </>
   );
 }

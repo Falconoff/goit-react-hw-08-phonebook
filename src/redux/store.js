@@ -1,11 +1,9 @@
 // ----------- HW-8 RTK Query ----------------
 
-// import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { authSlice, authApi } from './auth/authApi';
-
 import { contactsApi } from './contacts/contactsApi';
 import { filterSlice } from './filter/filterSlice';
 

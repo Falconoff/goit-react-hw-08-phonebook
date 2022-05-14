@@ -2,8 +2,6 @@ import toast from 'react-hot-toast';
 
 export default function registerErrors(error) {
   if (error) {
-    // console.log('error all:', error);
-
     const emailErr = error?.data?.errors?.email?.message;
     if (emailErr) {
       toast.error(emailErr);
