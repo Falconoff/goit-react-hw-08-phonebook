@@ -38,7 +38,6 @@ export default function RegisterView() {
 
     registerAndSaveToState({ name, email, password });
 
-    console.log('handleSubmit:', { name, email, password });
     if (isSuccess) {
       toast.success('Successfully registered!');
       setEmail('');

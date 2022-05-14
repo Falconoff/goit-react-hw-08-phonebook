@@ -1,6 +1,12 @@
 # goit-react-hw-08-phonebook
 
+- React Router DOM
+- React Redux
+- Redux Persist
 - Public & Private Routes
+- Styled Components
+- Использован
+  [шаблон React-проекта](https://github.com/goitacademy/react-homework-template#readme)
 
 - { "name": "Falconoff", "email": "sokolov@meta.ua", "password": "123123123" }
 - { "name": "sss", "email": "sss@sss.ua", "password": "1234567" }
@@ -19,3 +25,6 @@
   authSlice файла authApi.js), который заносит их в стейт.
 
 Запись токена в заголовок запроса - prepareHeaders в authApi.
+
+При наличии токена в localStorage, происходит автоматический рефреш данных
+пользователя и его логинизация.
