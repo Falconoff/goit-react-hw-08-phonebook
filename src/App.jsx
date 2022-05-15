@@ -71,6 +71,7 @@ function App() {
               </PublicRoute>
             }
           />
+          <Route path="*" element={<HomeView />} />
         </Route>
       </Routes>
     </>
