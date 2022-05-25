@@ -3,6 +3,7 @@
 - React Router DOM
 - React Redux
 - Redux Persist
+- RTK Query
 - Public & Private Routes
 - Styled Components
 - Использован
